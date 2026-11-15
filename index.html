@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f8f5">
+  <title>Acólitos São Francisco</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #26372f;
+      --muted: #829087;
+      --green: #496d59;
+      --green-dark: #365341;
+      --green-soft: #e8eee8;
+      --cream: #f7f8f5;
+      --paper: #fff;
+      --line: #e9ede8;
+      --gold: #c99a52;
+      --rose: #a76d65;
+      --shadow: 0 12px 36px rgba(37, 57, 45, .055);
+      font-family: "DM Sans", sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+    }
+
+    * { box-sizing: border-box; }
+    body { margin: 0; min-width: 320px; background: var(--cream); }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible { outline: 3px solid #a9c5af; outline-offset: 2px; }
+    .shell { max-width: 1240px; margin: 0 auto; padding: 0 38px; }
+    .topbar { height: 82px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #e8ece6; }
+    .brand { display: flex; align-items: center; gap: 12px; color: var(--ink); text-decoration: none; }
+    .brand-mark { width: 44px; height: 44px; flex: none; overflow: hidden; border-radius: 50%; }
+    .brand-mark img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 28%; }
+    .brand-name { font-family: Manrope, sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -.4px; }
+    .brand-sub { display: block; color: var(--muted); font-size: 11px; font-weight: 500; margin-top: 1px; }
+    .top-actions { display: flex; align-items: center; gap: 18px; }
+    .btn { border: 0; border-radius: 9px; padding: 10px 15px; font-weight: 600; font-size: 13px; transition: .18s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+    .btn-primary { color: white; background: var(--green); }
+    .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+    .btn-outline { color: var(--ink); background: white; border: 1px solid var(--line); }
+    .btn-outline:hover { border-color: #b7c8bb; background: #fbfcfa; }
+    .btn-quiet { color: var(--green); background: transparent; padding-left: 9px; padding-right: 9px; }
+    .btn-danger { color: #9c554d; background: #fbefed; }
+    .btn-sm { font-size: 12px; padding: 8px 11px; }
+    .icon-btn { width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line); background: white; color: #66776c; display: grid; place-items: center; }
+    .icon-btn:hover { background: var(--green-soft); color: var(--green-dark); }
+    main { padding: 35px 0 64px; }
+    .eyebrow { color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3 { font-family: Manrope, sans-serif; }
+    .page-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 25px; }
+    .page-heading h1 { font-size: clamp(26px, 3vw, 34px); letter-spacing: -1.35px; margin: 8px 0 5px; }
+    .page-heading p { color: var(--muted); font-size: 14px; margin: 0; }
+    .date-range { color: var(--muted); font-size: 12px; padding-bottom: 4px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 22px; }
+    .stat-card { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 17px 19px; display: flex; align-items: center; gap: 13px; }
+    .stat-icon { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; color: var(--green); background: #edf2ed; }
+    .stat-icon.gold { color: #a77c3e; background: #f7f0e5; }
+    .stat-icon.rose { color: #a66c64; background: #f7eeec; }
+    .stat-value { font-family: Manrope, sans-serif; font-size: 21px; font-weight: 800; line-height: 1.1; }
+    .stat-label { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .dashboard { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(290px, .9fr); gap: 18px; align-items: start; }
+    .card { background: var(--paper); border: 1px solid var(--line); border-radius: 13px; box-shadow: var(--shadow); }
+    .calendar-card { padding: 21px 22px 18px; }
+    .card-heading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    .card-heading h2 { font-size: 16px; letter-spacing: -.3px; margin: 0; }
+    .month-controls { display: flex; align-items: center; gap: 9px; }
+    .month-label { min-width: 134px; text-align: center; font-size: 13px; font-weight: 700; }
+    .calendar-grid { margin-top: 19px; display: grid; grid-template-columns: repeat(7, 1fr); }
+    .weekday { text-align: center; color: #9aa59e; font-size: 10px; font-weight: 700; padding-bottom: 10px; text-transform: uppercase; }
+    .day { min-height: 58px; border-top: 1px solid #f0f2ef; border-right: 1px solid #f0f2ef; position: relative; padding: 7px 5px; font-size: 12px; color: #59695e; }
+    .day:nth-child(7n) { border-right: 0; }
+    .day.empty { background: #fcfcfb; }
+    .day.today .day-number { background: #eff3ed; color: var(--green-dark); font-weight: 700; }
+    .day-number { width: 25px; height: 25px; border-radius: 50%; display: grid; place-items: center; }
+    .day.mission-day { cursor: pointer; }
+    .day.mission-day:hover { background: #fafbf8; }
+    .day.selected { background: #f2f6f1; }
+    .day.selected .day-number { background: var(--green); color: white; font-weight: 700; }
+    .day-event { margin: 3px 1px 0; font-size: 9px; line-height: 1.25; color: var(--green-dark); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .day-event::before { content: ""; display: inline-block; vertical-align: 1px; width: 5px; height: 5px; margin-right: 3px; border-radius: 50%; background: #75a180; }
+    .calendar-legend { display: flex; align-items: center; gap: 7px; margin-top: 14px; color: var(--muted); font-size: 11px; }
+    .legend-dot { width: 7px; height: 7px; background: #75a180; border-radius: 50%; }
+    .detail-card { min-height: 345px; overflow: hidden; }
+    .detail-top { padding: 21px 21px 17px; border-bottom: 1px solid var(--line); }
+    .detail-date { color: var(--green); font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+    .detail-top h2 { font-size: 19px; letter-spacing: -.5px; margin: 7px 0 4px; }
+    .detail-sub { color: var(--muted); font-size: 12px; margin: 0; }
+    .service-list { padding: 9px 20px; }
+    .schedule-notes { padding: 13px 20px 16px; border-top: 1px solid #f0f2ef; font-size: 12px; line-height: 1.55; white-space: pre-wrap; }
+    .schedule-notes strong { display: block; margin-bottom: 4px; color: #647269; font-size: 11px; }
+    .schedule-notes p { margin: 0; }
+    .service-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f1f3f0; }
+    .service-row:last-child { border-bottom: 0; }
+    .service-role { display: flex; align-items: center; gap: 9px; color: #647269; font-size: 12px; }
+    .role-icon { width: 27px; height: 27px; display: grid; place-items: center; background: #f0f3ef; border-radius: 8px; font-size: 13px; }
+    .service-name { font-size: 12px; font-weight: 700; }
+    .empty-state { text-align: center; padding: 35px 24px; }
+    .empty-icon { margin: 0 auto 12px; width: 42px; height: 42px; display: grid; place-items: center; color: #768a7a; background: #f0f4ef; border-radius: 13px; }
+    .empty-state h3 { font-size: 14px; margin: 0 0 5px; }
+    .empty-state p { color: var(--muted); font-size: 12px; line-height: 1.55; margin: 0; }
+    .next-card { margin-top: 16px; padding: 17px 19px 10px; }
+    .next-card .card-heading { margin-bottom: 7px; }
+    .next-item { width: 100%; display: flex; align-items: center; gap: 11px; padding: 11px 0; text-align: left; background: transparent; border: 0; border-bottom: 1px solid #f0f2ef; }
+    .next-item:last-child { border: 0; }
+    .next-item:hover .next-title { color: var(--green); }
+    .date-tile { width: 41px; height: 42px; flex: 0 0 41px; display: grid; align-content: center; text-align: center; border-radius: 9px; background: #f2f5f1; color: var(--green); }
+    .date-tile strong { font-family: Manrope, sans-serif; font-size: 16px; line-height: 1.1; }
+    .date-tile span { text-transform: uppercase; font-size: 9px; font-weight: 700; margin-top: 2px; }
+    .next-copy { flex: 1; min-width: 0; }
+    .next-title { font-size: 12px; font-weight: 700; transition: color .15s; }
+    .next-meta { display: inline-block; margin-left: 8px; color: var(--muted); font-size: 10px; }
+    .arrow { color: #a3aea6; font-size: 16px; }
+    .admin-banner { padding: 14px 16px; margin-bottom: 19px; border-radius: 10px; background: #eef3ed; display: flex; align-items: center; justify-content: space-between; color: var(--green-dark); font-size: 12px; }
+    .admin-banner strong { font-size: 13px; }
+    .connection-message { margin: 0 0 18px; padding: 13px 15px; border: 1px solid #e8d8b8; border-radius: 10px; background: #fbf5e9; color: #785f34; font-size: 12px; line-height: 1.5; }
+    .admin-tabs { display: flex; gap: 5px; border-bottom: 1px solid var(--line); margin-bottom: 17px; }
+    .tab { padding: 11px 15px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--muted); font-size: 13px; font-weight: 600; }
+    .tab.active { border-bottom-color: var(--green); color: var(--green-dark); }
+    .admin-content { padding: 21px; }
+    .section-heading { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-bottom: 16px; }
+    .section-heading h2 { font-size: 16px; margin: 0 0 4px; }
+    .section-heading p { color: var(--muted); font-size: 12px; margin: 0; }
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; text-align: left; }
+    th { color: #8a968e; font-size: 10px; letter-spacing: .7px; text-transform: uppercase; font-weight: 700; padding: 10px 12px; background: #fafbf9; }
+    td { padding: 12px; font-size: 12px; border-top: 1px solid #eff1ee; }
+    .person-cell { display: flex; align-items: center; gap: 9px; font-weight: 700; }
+    .avatar { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: #e9f0e9; color: var(--green); font-size: 10px; font-weight: 700; }
+    .actions { display: flex; justify-content: flex-end; gap: 6px; }
+    .empty-table { padding: 28px !important; color: var(--muted); text-align: center; }
+    .schedule-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 0; border-top: 1px solid #eff1ee; }
+    .schedule-info { min-width: 0; }
+    .schedule-info strong { display: block; font-size: 13px; }
+    .schedule-info span { display: block; margin-top: 4px; font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .schedule-tools { display: flex; gap: 7px; flex: 0 0 auto; }
+    .overlay { position: fixed; inset: 0; z-index: 5; background: rgba(32, 46, 37, .36); display: grid; place-items: center; padding: 18px; }
+    .modal { width: min(100%, 410px); background: white; border-radius: 15px; padding: 25px; box-shadow: 0 20px 70px rgba(25, 40, 30, .2); }
+    .modal h2 { font-size: 19px; margin: 0 0 6px; }
+    .modal-intro { color: var(--muted); font-size: 12px; line-height: 1.5; margin-bottom: 20px; }
+    .form-field { display: block; margin-bottom: 14px; }
+    .form-field span { display: block; margin-bottom: 6px; color: #69786e; font-size: 11px; font-weight: 700; }
+    .form-field input, .form-field select { width: 100%; border: 1px solid #dfe5df; border-radius: 8px; background: white; padding: 10px 11px; color: var(--ink); font-size: 13px; }
+    .form-field textarea { width: 100%; min-height: 82px; resize: vertical; border: 1px solid #dfe5df; border-radius: 8px; background: white; padding: 10px 11px; color: var(--ink); font: inherit; font-size: 13px; }
+    .form-field input::placeholder { color: #abb5ad; }
+    .form-field textarea::placeholder { color: #abb5ad; }
+    .modal-error { color: #a8564c; font-size: 12px; margin: -5px 0 12px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 19px; }
+    .form-note { color: var(--muted); font-size: 10px; line-height: 1.45; margin: 14px 0 0; }
+    .toast { position: fixed; z-index: 8; bottom: 22px; left: 50%; transform: translate(-50%, 15px); opacity: 0; pointer-events: none; background: #334d3c; color: white; border-radius: 9px; padding: 11px 16px; font-size: 12px; box-shadow: var(--shadow); transition: .22s ease; }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .footer { color: #99a49c; text-align: center; font-size: 10px; padding: 27px 0 0; }
+    .hidden { display: none !important; }
+    @media (max-width: 760px) {
+      .shell { padding: 0 19px; }
+      .topbar { height: 70px; }
+      .live-label { display: none; }
+      main { padding-top: 27px; }
+      .page-heading { align-items: flex-start; flex-direction: column; gap: 11px; }
+      .stats { gap: 8px; }
+      .stat-card { padding: 12px 10px; gap: 8px; }
+      .stat-icon { width: 31px; height: 31px; flex: 0 0 31px; }
+      .stat-value { font-size: 17px; }
+      .stat-label { font-size: 9px; }
+      .dashboard { grid-template-columns: 1fr; }
+      .calendar-card { padding: 17px 13px 14px; }
+      .day { min-height: 52px; padding: 5px 3px; }
+      .day-event { font-size: 8px; }
+      .month-label { min-width: 112px; font-size: 12px; }
+      .admin-content { padding: 15px 12px; }
+      .section-heading { align-items: flex-start; }
+    }
+    @media (max-width: 430px) {
+      .brand-name { font-size: 13px; }
+      .brand-mark { width: 36px; height: 36px; }
+      .top-actions { gap: 8px; }
+      .btn { padding: 9px 11px; font-size: 12px; }
+      .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .stat-card { display: block; }
+      .stat-icon { margin-bottom: 7px; }
+      .calendar-grid { margin-top: 14px; }
+      .weekday { font-size: 9px; }
+      .day { min-height: 45px; font-size: 10px; }
+      .day-number { width: 21px; height: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#" id="homeLink" aria-label="Página inicial">
+      <span class="brand-mark" aria-hidden="true"><img src="sao-francisco-logo.png" alt=""></span>
+      <span class="brand-name">São Francisco<span class="brand-sub">Grupo de Acólitos</span></span>
+    </a>
+    <div class="top-actions">
+      <button class="btn btn-outline" id="adminButton" type="button">Acesso administrador</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <div id="connectionMessage" class="connection-message hidden" role="status"></div>
+    <section id="userView">
+      <div class="page-heading">
+        <div>
+          <div class="eyebrow">Escalas de serviço</div>
+          <h1>Encontre sua próxima missa</h1>
+          <p>Consulte o calendário e veja quem estará servindo em cada celebração.</p>
+        </div>
+        <div class="date-range" id="rangeLabel"></div>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><span class="stat-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg></span><div><div class="stat-value" id="statMasses">0</div><div class="stat-label">Missas na programação</div></div></div>
+        <div class="stat-card"><span class="stat-icon gold"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></svg></span><div><div class="stat-value" id="statAcolytes">0</div><div class="stat-label">Acólitos cadastrados</div></div></div>
+        <div class="stat-card"><span class="stat-icon rose"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s-8-4.4-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.6-8 11-8 11Z"/></svg></span><div><div class="stat-value" id="statNext">—</div><div class="stat-label" id="statNextLabel">Próxima celebração</div></div></div>
+      </div>
+      <div class="dashboard">
+        <section class="card calendar-card" aria-label="Calendário de missas">
+          <div class="card-heading">
+            <h2>Calendário</h2>
+            <div class="month-controls">
+              <button class="icon-btn" id="prevMonth" aria-label="Mês anterior" type="button">‹</button>
+              <div class="month-label" id="monthLabel"></div>
+              <button class="icon-btn" id="nextMonth" aria-label="Próximo mês" type="button">›</button>
+            </div>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+          <div class="calendar-legend"><span class="legend-dot"></span> Missa programada</div>
+        </section>
+        <div>
+          <section class="card detail-card" id="selectedDetail"></section>
+          <section class="card next-card">
+            <div class="card-heading"><h2>Próximas missas</h2></div>
+            <div id="upcomingList"></div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="adminView" class="hidden">
+      <div class="page-heading">
+        <div><div class="eyebrow">Painel de gestão</div><h1>Área do administrador</h1><p>Organize a equipe e prepare as próximas celebrações.</p></div>
+        <button class="btn btn-outline" id="logoutButton" type="button">Sair da administração</button>
+      </div>
+      <div class="admin-banner"><span><strong>Bem-vindo à administração.</strong> As alterações são compartilhadas com quem acessar este site.</span><span aria-hidden="true">✦</span></div>
+      <div class="admin-tabs" role="tablist">
+        <button class="tab active" id="rosterTab" role="tab" aria-selected="true" type="button">Acólitos</button>
+        <button class="tab" id="schedulesTab" role="tab" aria-selected="false" type="button">Escalas</button>
+      </div>
+      <section class="card admin-content" id="rosterPanel"></section>
+      <section class="card admin-content hidden" id="schedulesPanel"></section>
+    </section>
+    <footer class="footer">Grupo de Acólitos · Comunidade São Francisco</footer>
+  </main>
+  <div id="modalRoot"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
+  <script>
+    (function () {
+      "use strict";
+      var LEGACY_STORAGE_KEY = "sao-francisco-acolitos-v1";
+      var ADMIN_EMAIL = "acolitossaofrancisco@gmail.com";
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      var startMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      var endMonth = new Date(today.getFullYear(), today.getMonth() + 5, 1);
+      var monthCursor = new Date(startMonth);
+      var selectedDate = null;
+      var adminMode = false;
+      var activeTab = "roster";
+      var toastTimer;
+      var firstMassRoles = ["Turíbulo", "Naveta", "Microfone"];
+      var secondMassRoles = ["Missal", "Microfone", "Folga"];
+      var roles = firstMassRoles.concat(secondMassRoles.filter(function (role) { return firstMassRoles.indexOf(role) < 0; }));
+      var roleIcons = { "Turíbulo": "♨", "Naveta": "◉", "Microfone": "♩", "Missal": "▤", "Folga": "☾" };
+      var referenceRotation = [
+        { month: "2026-06", first: ["Amanda", "Fabrício", "Brenda"], second: ["Fabrício", "Brenda", "Amanda"] },
+        { month: "2026-07", first: ["Brenda", "Amanda", "Fabrício"], second: ["Amanda", "Fabrício", "Brenda"] },
+        { month: "2026-08", first: ["Fabrício", "Brenda", "Amanda"], second: ["Brenda", "Amanda", "Fabrício"] },
+        { month: "2026-09", first: ["Amanda", "Brenda", "Fabrício"], second: ["Brenda", "Fabrício", "Amanda"] },
+        { month: "2026-10", first: ["Brenda", "Fabrício", "Amanda"], second: ["Fabrício", "Amanda", "Brenda"] },
+        { month: "2026-11", first: ["Fabrício", "Amanda", "Brenda"], second: ["Amanda", "Brenda", "Fabrício"] },
+        { month: "2026-12", first: ["Amanda", "Fabrício", "Brenda"], second: ["Fabrício", "Brenda", "Amanda"] }
+      ];
+      var state = emptyState();
+      var committedState = emptyState();
+      var legacyState = loadLegacyState();
+      var supabaseClient = null;
+      var stateReady = false;
+      var sharedStateInitialized = false;
+      var realtimeChannel = null;
+
+      function emptyState() {
+        return { acolytes: [], schedules: [], rotationHistory: [] };
+      }
+
+      function cloneState(value) {
+        return JSON.parse(JSON.stringify(value));
+      }
+
+      function loadLegacyState() {
+        try {
+          var saved = localStorage.getItem(LEGACY_STORAGE_KEY);
+          if (!saved) return emptyState();
+          var data = JSON.parse(saved);
+          if (!data || !Array.isArray(data.acolytes) || !Array.isArray(data.schedules)) throw new Error("Dados salvos inválidos.");
+          if (!Array.isArray(data.rotationHistory)) data.rotationHistory = [];
+          return data;
+        } catch (error) {
+          console.error("Não foi possível ler os dados locais anteriores.", error);
+          return emptyState();
+        }
+      }
+
+      function showConnectionMessage(message) {
+        var element = document.getElementById("connectionMessage");
+        element.textContent = message;
+        element.classList.toggle("hidden", !message);
+      }
+
+      function publicStateFromApp() {
+        return {
+          acolytes: state.acolytes.map(function (person) {
+            return { id: person.id, name: person.name };
+          }),
+          schedules: state.schedules.map(function (schedule) {
+            return {
+              id: schedule.id,
+              date: schedule.date,
+              slot: schedule.slot,
+              time: schedule.time,
+              assignments: schedule.assignments,
+              observations: schedule.observations || ""
+            };
+          }),
+          rotationHistory: state.rotationHistory
+        };
+      }
+
+      function hydratePublicState(publicState, contacts) {
+        if (!publicState || !Array.isArray(publicState.acolytes) || !Array.isArray(publicState.schedules)) {
+          throw new Error("Os dados compartilhados têm um formato inválido.");
+        }
+        var phonesById = {};
+        (contacts || []).forEach(function (contact) { phonesById[contact.acolyte_id] = contact.phone || ""; });
+        state = {
+          acolytes: publicState.acolytes.map(function (person) {
+            return { id: person.id, name: person.name, phone: phonesById[person.id] || "" };
+          }),
+          schedules: publicState.schedules,
+          rotationHistory: Array.isArray(publicState.rotationHistory) ? publicState.rotationHistory : []
+        };
+      }
+
+      async function loadSharedState(includeContacts) {
+        var result = await supabaseClient.from("app_state")
+          .select("id,public_state,initialized,updated_at")
+          .eq("id", 1)
+          .maybeSingle();
+        if (result.error) throw result.error;
+        var row = result.data;
+        var contacts = [];
+        if (includeContacts) {
+          var contactResult = await supabaseClient.from("acolyte_contacts").select("acolyte_id,phone");
+          if (contactResult.error) throw contactResult.error;
+          contacts = contactResult.data || [];
+        }
+        hydratePublicState(row ? row.public_state : emptyState(), contacts);
+        sharedStateInitialized = Boolean(row && row.initialized);
+        stateReady = true;
+        committedState = cloneState(state);
+        return row;
+      }
+
+      function subscribeToSharedState() {
+        if (realtimeChannel) supabaseClient.removeChannel(realtimeChannel);
+        realtimeChannel = supabaseClient.channel("shared-acolyte-state")
+          .on("postgres_changes", {
+            event: "*",
+            schema: "public",
+            table: "app_state",
+            filter: "id=eq.1"
+          }, function (payload) {
+            if (!payload.new || !payload.new.public_state) return;
+            var existingContacts = adminMode ? state.acolytes.map(function (person) {
+              return { acolyte_id: person.id, phone: person.phone || "" };
+            }) : [];
+            try {
+              hydratePublicState(payload.new.public_state, existingContacts);
+              sharedStateInitialized = Boolean(payload.new.initialized);
+              committedState = cloneState(state);
+              render();
+            } catch (error) {
+              console.error("Não foi possível atualizar os dados recebidos.", error);
+              showConnectionMessage("Não foi possível atualizar os dados compartilhados. Recarregue a página.");
+            }
+          })
+          .subscribe(function (status) {
+            if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
+              showConnectionMessage("A atualização automática não está disponível. Recarregue a página para buscar as alterações mais recentes.");
+            } else if (status === "SUBSCRIBED") {
+              showConnectionMessage("");
+            }
+          });
+      }
+
+      async function initializeApp() {
+        var config = window.ACOLITOS_SUPABASE_CONFIG;
+        if (!window.supabase || !config || !config.url || !config.anonKey ||
+            config.url.indexOf("YOUR_PROJECT_ID") >= 0 || config.anonKey.indexOf("YOUR_SUPABASE") >= 0) {
+          showConnectionMessage("O banco compartilhado ainda não está configurado. Siga as instruções de configuração do Supabase no README.");
+          document.getElementById("adminButton").disabled = true;
+          render();
+          return;
+        }
+        showConnectionMessage("Conectando ao calendário compartilhado...");
+        try {
+          supabaseClient = window.supabase.createClient(config.url, config.anonKey);
+          await loadSharedState(false);
+          var sessionResult = await supabaseClient.auth.getSession();
+          if (sessionResult.error) throw sessionResult.error;
+          var session = sessionResult.data.session;
+          if (session && session.user.email && session.user.email.toLowerCase() === ADMIN_EMAIL) {
+            adminMode = true;
+            await loadSharedState(true);
+            if (!sharedStateInitialized) {
+              state = cloneState(legacyState);
+              if (!await saveState()) throw new Error("Não foi possível inicializar o banco compartilhado.");
+            }
+          } else if (session) {
+            var signOutResult = await supabaseClient.auth.signOut();
+            if (signOutResult.error) throw signOutResult.error;
+          }
+          subscribeToSharedState();
+          showConnectionMessage("");
+          render();
+        } catch (error) {
+          console.error("Não foi possível conectar ao banco compartilhado.", error);
+          adminMode = false;
+          showConnectionMessage("Não foi possível conectar ao banco compartilhado. Verifique a configuração do Supabase e tente novamente.");
+          document.getElementById("adminButton").disabled = true;
+          render();
+        }
+      }
+
+      async function saveState() {
+        if (!supabaseClient || !stateReady || !adminMode) {
+          showToast("Entre como administrador e conecte o banco compartilhado antes de salvar.");
+          return false;
+        }
+        try {
+          syncRotationHistory();
+          var contacts = state.acolytes.map(function (person) {
+            return { acolyte_id: person.id, phone: person.phone || "" };
+          });
+          if (contacts.length) {
+            var contactSave = await supabaseClient.from("acolyte_contacts")
+              .upsert(contacts, { onConflict: "acolyte_id" });
+            if (contactSave.error) throw contactSave.error;
+          }
+          var contactList = await supabaseClient.from("acolyte_contacts").select("acolyte_id");
+          if (contactList.error) throw contactList.error;
+          var activeIds = new Set(state.acolytes.map(function (person) { return person.id; }));
+          var staleContacts = (contactList.data || []).filter(function (contact) { return !activeIds.has(contact.acolyte_id); });
+          for (var index = 0; index < staleContacts.length; index += 1) {
+            var removeResult = await supabaseClient.from("acolyte_contacts").delete().eq("acolyte_id", staleContacts[index].acolyte_id);
+            if (removeResult.error) throw removeResult.error;
+          }
+          var stateSave = await supabaseClient.from("app_state").upsert({
+            id: 1,
+            public_state: publicStateFromApp(),
+            initialized: true,
+            updated_at: new Date().toISOString()
+          }, { onConflict: "id" });
+          if (stateSave.error) throw stateSave.error;
+          sharedStateInitialized = true;
+          committedState = cloneState(state);
+        } catch (error) {
+          console.error("Não foi possível salvar no banco compartilhado.", error);
+          state = cloneState(committedState);
+          render();
+          showToast("Não foi possível salvar no banco compartilhado. Verifique a conexão e tente novamente.");
+          return false;
+        }
+        return true;
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, function (char) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[char];
+        });
+      }
+
+      function dateKey(date) {
+        return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
+      }
+
+      function fromKey(key) {
+        var parts = key.split("-").map(Number);
+        return new Date(parts[0], parts[1] - 1, parts[2]);
+      }
+
+      function monthName(date, short) {
+        return new Intl.DateTimeFormat("pt-BR", { month: short ? "short" : "long" }).format(date);
+      }
+
+      function formatDate(date, options) {
+        return new Intl.DateTimeFormat("pt-BR", options || { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(date);
+      }
+
+      function sortedSchedules() {
+        return state.schedules.slice().sort(function (a, b) { return a.date.localeCompare(b.date); });
+      }
+
+      function getSchedule(key) {
+        return state.schedules.find(function (item) { return item.date === key; });
+      }
+
+      function saturdayOfMonth(year, month, occurrence) {
+        var firstSaturday = 1 + ((6 - new Date(year, month, 1).getDay() + 7) % 7);
+        return new Date(year, month, firstSaturday + (occurrence - 1) * 7);
+      }
+
+      function scheduleSlot(schedule) {
+        return schedule.slot === 2 || schedule.slot === 4 ? schedule.slot : Math.ceil(fromKey(schedule.date).getDate() / 7);
+      }
+
+      function monthSlotKey(date, slot) {
+        return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + slot;
+      }
+
+      function syncRotationHistory() {
+        if (!Array.isArray(state.rotationHistory)) state.rotationHistory = [];
+        state.schedules.forEach(function (schedule) {
+          if (!Array.isArray(schedule.assignments)) return;
+          var slot = scheduleSlot(schedule);
+          var date = fromKey(schedule.date);
+          var key = monthSlotKey(date, slot);
+          var record = {
+            key: key,
+            date: schedule.date,
+            slot: slot,
+            assignments: schedule.assignments.map(function (assignment) {
+              return { role: assignment.role, acolyteId: assignment.acolyteId };
+            })
+          };
+          var existingIndex = state.rotationHistory.findIndex(function (item) { return item.key === key; });
+          if (existingIndex >= 0) state.rotationHistory[existingIndex] = record;
+          else state.rotationHistory.push(record);
+        });
+      }
+
+      function massTimeForSlot(slot) {
+        if (slot === 2) return "18:00";
+        if (slot === 4) return "17:00";
+        return "—";
+      }
+
+      function massTimeForSchedule(schedule) {
+        return schedule.time || massTimeForSlot(scheduleSlot(schedule));
+      }
+
+      function servingCount(schedule) {
+        return schedule.assignments.filter(function (assignment) { return assignment.role !== "Folga"; }).length;
+      }
+
+      function scheduleCandidates() {
+        var candidates = [];
+        for (var offset = 0; offset < 6; offset += 1) {
+          var month = new Date(startMonth.getFullYear(), startMonth.getMonth() + offset, 1);
+          [2, 4].forEach(function (occurrence) {
+            var date = saturdayOfMonth(month.getFullYear(), month.getMonth(), occurrence);
+            if (date >= today && date <= new Date(endMonth.getFullYear(), endMonth.getMonth() + 1, 0)) {
+              candidates.push({ date: date, slot: occurrence });
+            }
+          });
+        }
+        return candidates.sort(function (a, b) { return a.date - b.date; });
+      }
+
+      function normalizedName(name) {
+        return String(name).normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toLowerCase();
+      }
+
+      function rotationRoles(slot) {
+        return slot === 2 ? firstMassRoles : secondMassRoles;
+      }
+
+      function buildReferenceSchedules(acolytes) {
+        var byName = {};
+        acolytes.forEach(function (person) {
+          var key = normalizedName(person.name);
+          if (!byName[key]) byName[key] = [];
+          byName[key].push(person);
+        });
+        var result = {};
+        referenceRotation.forEach(function (month) {
+          [2, 4].forEach(function (slot) {
+            var names = slot === 2 ? month.first : month.second;
+            var selected = names.map(function (name) {
+              var matches = byName[normalizedName(name)] || [];
+              return matches.length === 1 ? matches[0] : null;
+            });
+            if (selected.some(function (person) { return !person; }) || new Set(selected.map(function (person) { return person.id; })).size !== 3) return;
+            var parts = month.month.split("-").map(Number);
+            var date = saturdayOfMonth(parts[0], parts[1] - 1, slot);
+            result[month.month + "-" + slot] = {
+              date: date,
+              month: month.month,
+              slot: slot,
+              assignments: rotationRoles(slot).map(function (role, index) {
+                return { role: role, acolyteId: selected[index].id };
+              })
+            };
+          });
+        });
+        return result;
+      }
+
+      function assignmentsKey(slot, assignments) {
+        var byRole = {};
+        assignments.forEach(function (assignment) { byRole[assignment.role] = assignment.acolyteId; });
+        var ordered = rotationRoles(slot).map(function (role) { return byRole[role]; });
+        if (ordered.some(function (id) { return !id; })) return null;
+        return slot + "|" + ordered.join("|");
+      }
+
+      function normalizedAssignments(slot, assignments, acolytes) {
+        var normalized = assignments.filter(function (assignment) {
+          return acolytes.some(function (person) { return person.id === assignment.acolyteId; });
+        }).map(function (assignment) {
+          return { role: assignment.role, acolyteId: assignment.acolyteId };
+        });
+        if (slot === 4 && !normalized.some(function (assignment) { return assignment.role === "Folga"; }) && acolytes.length === 3) {
+          var servingIds = normalized.map(function (assignment) { return assignment.acolyteId; });
+          var resting = acolytes.find(function (person) { return servingIds.indexOf(person.id) < 0; });
+          if (resting) normalized.push({ role: "Folga", acolyteId: resting.id });
+        }
+        return normalized;
+      }
+
+      function createRotationHistory(acolytes, existingBySlot, referenceBySlot) {
+        var history = { used: {}, lastUsed: {}, teamUses: {}, appearances: {}, roleUses: {}, pairUses: {}, lastTeam: [] };
+        acolytes.forEach(function (person) {
+          history.appearances[person.id] = 0;
+          history.roleUses[person.id] = {};
+          roles.forEach(function (role) { history.roleUses[person.id][role] = 0; });
+        });
+        var pastBySlot = {};
+        function addPastEvent(event, priority) {
+          if (event.date >= today) return;
+          var key = monthSlotKey(event.date, event.slot);
+          var activeSchedule = existingBySlot[key];
+          if (priority < 3 && activeSchedule && fromKey(activeSchedule.date) >= today) return;
+          if (!pastBySlot[key] || priority > pastBySlot[key].priority) {
+            pastBySlot[key] = {
+              date: event.date,
+              slot: event.slot,
+              assignments: event.assignments,
+              priority: priority
+            };
+          }
+        }
+        Object.keys(referenceBySlot).forEach(function (key) {
+          var reference = referenceBySlot[key];
+          addPastEvent({ date: reference.date, slot: reference.slot, assignments: reference.assignments }, 1);
+        });
+        state.rotationHistory.forEach(function (record) {
+          if (!record.date || !record.slot || !Array.isArray(record.assignments)) return;
+          addPastEvent({
+            date: fromKey(record.date),
+            slot: record.slot,
+            assignments: normalizedAssignments(record.slot, record.assignments, acolytes)
+          }, 2);
+        });
+        state.schedules.forEach(function (schedule) {
+          var slot = scheduleSlot(schedule);
+          addPastEvent({
+            date: fromKey(schedule.date),
+            slot: slot,
+            assignments: normalizedAssignments(slot, schedule.assignments, acolytes)
+          }, 3);
+        });
+        Object.keys(pastBySlot).map(function (key) { return pastBySlot[key]; }).sort(function (a, b) { return a.date - b.date; }).forEach(function (event) {
+          recordRotationUse(history, event.slot, event.date, event.assignments);
+        });
+        return history;
+      }
+
+      function recordRotationUse(history, slot, date, assignments) {
+        var key = assignmentsKey(slot, assignments);
+        var team = assignments.map(function (assignment) { return assignment.acolyteId; }).sort();
+        if (key) {
+          history.used[key] = true;
+          history.lastUsed[key] = date.getTime();
+        }
+        var teamKey = team.join("|");
+        history.teamUses[teamKey] = (history.teamUses[teamKey] || 0) + 1;
+        assignments.forEach(function (assignment) {
+          if (!history.roleUses[assignment.acolyteId]) return;
+          history.roleUses[assignment.acolyteId][assignment.role] += 1;
+          if (assignment.role !== "Folga") history.appearances[assignment.acolyteId] += 1;
+        });
+        for (var first = 0; first < team.length; first += 1) {
+          for (var second = first + 1; second < team.length; second += 1) {
+            var pairKey = [team[first], team[second]].join("|");
+            history.pairUses[pairKey] = (history.pairUses[pairKey] || 0) + 1;
+          }
+        }
+        history.lastTeam = team;
+      }
+
+      function chooseRotationAssignments(event, acolytes, history) {
+        var availableRoles = rotationRoles(event.slot);
+        var bestFresh = null;
+        var bestUsed = null;
+        function rank(candidate, current) {
+          if (!current) return true;
+          if (candidate.used !== current.used) return !candidate.used;
+          if (candidate.used && candidate.lastUsed !== current.lastUsed) return candidate.lastUsed < current.lastUsed;
+          if (candidate.teamUses !== current.teamUses) return candidate.teamUses < current.teamUses;
+          if (candidate.recentOverlap !== current.recentOverlap) return candidate.recentOverlap < current.recentOverlap;
+          if (candidate.appearanceScore !== current.appearanceScore) return candidate.appearanceScore < current.appearanceScore;
+          if (candidate.roleScore !== current.roleScore) return candidate.roleScore < current.roleScore;
+          if (candidate.pairScore !== current.pairScore) return candidate.pairScore < current.pairScore;
+          return candidate.nameOrder.localeCompare(current.nameOrder, "pt-BR") < 0;
+        }
+        function consider(first, second, third) {
+          var selected = [first, second, third];
+          var assignments = availableRoles.map(function (role, index) {
+            return { role: role, acolyteId: selected[index].id };
+          });
+          var key = assignmentsKey(event.slot, assignments);
+          var team = selected.map(function (person) { return person.id; }).sort();
+          var attendanceScore = selected.reduce(function (sum, person) {
+            return sum + Math.pow(history.appearances[person.id] || 0, 2);
+          }, 0);
+          var roleScore = assignments.reduce(function (sum, assignment) {
+            return sum + Math.pow(history.roleUses[assignment.acolyteId][assignment.role] || 0, 2);
+          }, 0);
+          var pairScore = 0;
+          for (var firstIndex = 0; firstIndex < team.length; firstIndex += 1) {
+            for (var secondIndex = firstIndex + 1; secondIndex < team.length; secondIndex += 1) {
+              pairScore += history.pairUses[[team[firstIndex], team[secondIndex]].join("|")] || 0;
+            }
+          }
+          var candidate = {
+            assignments: assignments,
+            used: Boolean(history.used[key]),
+            lastUsed: history.lastUsed[key] || 0,
+            teamUses: history.teamUses[team.join("|")] || 0,
+            recentOverlap: team.filter(function (id) { return history.lastTeam.indexOf(id) >= 0; }).length,
+            appearanceScore: attendanceScore,
+            roleScore: roleScore,
+            pairScore: pairScore,
+            nameOrder: selected.map(function (person) { return person.name; }).join("|")
+          };
+          if (candidate.used) {
+            if (rank(candidate, bestUsed)) bestUsed = candidate;
+          } else if (rank(candidate, bestFresh)) {
+            bestFresh = candidate;
+          }
+        }
+        for (var first = 0; first < acolytes.length; first += 1) {
+          for (var second = 0; second < acolytes.length; second += 1) {
+            if (second === first) continue;
+            for (var third = 0; third < acolytes.length; third += 1) {
+              if (third === first || third === second) continue;
+              consider(acolytes[first], acolytes[second], acolytes[third]);
+            }
+          }
+        }
+        return bestFresh ? bestFresh.assignments : bestUsed.assignments;
+      }
+
+      function assignmentsFor(acolytes, candidates, existingBySlot) {
+        var referenceBySlot = buildReferenceSchedules(acolytes);
+        var history = createRotationHistory(acolytes, existingBySlot, referenceBySlot);
+        var events = candidates.map(function (candidate) {
+          var key = monthSlotKey(candidate.date, candidate.slot);
+          var existing = existingBySlot[key] || null;
+          return { candidate: candidate, existing: existing, date: existing ? fromKey(existing.date) : candidate.date };
+        }).sort(function (a, b) { return a.date - b.date; });
+        var result = [];
+        events.forEach(function (event) {
+          var candidate = event.candidate;
+          if (event.existing) {
+            recordRotationUse(history, candidate.slot, event.date, normalizedAssignments(candidate.slot, event.existing.assignments, acolytes));
+            return;
+          }
+          var monthKey = candidate.date.getFullYear() + "-" + String(candidate.date.getMonth() + 1).padStart(2, "0");
+          var reference = referenceBySlot[monthKey + "-" + candidate.slot];
+          var assignments = reference ? reference.assignments : chooseRotationAssignments(candidate, acolytes, history);
+          recordRotationUse(history, candidate.slot, candidate.date, assignments);
+          result.push({
+            id: "mass-" + dateKey(candidate.date),
+            date: dateKey(candidate.date),
+            slot: candidate.slot,
+            time: massTimeForSlot(candidate.slot),
+            assignments: assignments
+          });
+        });
+        return result;
+      }
+
+      function showToast(message) {
+        var toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 2600);
+      }
+
+      function render() {
+        document.getElementById("userView").classList.toggle("hidden", adminMode);
+        document.getElementById("adminView").classList.toggle("hidden", !adminMode);
+        document.getElementById("adminButton").classList.toggle("hidden", adminMode);
+        if (adminMode) {
+          renderAdmin();
+        } else {
+          renderUser();
+        }
+      }
+
+      function renderUser() {
+        document.getElementById("rangeLabel").textContent = monthName(startMonth, false) + " – " + monthName(endMonth, false) + " " + endMonth.getFullYear();
+        document.getElementById("statMasses").textContent = state.schedules.length;
+        document.getElementById("statAcolytes").textContent = state.acolytes.length;
+        var upcoming = sortedSchedules().filter(function (item) { return fromKey(item.date) >= today; });
+        document.getElementById("statNext").textContent = upcoming.length ? massTimeForSchedule(upcoming[0]) : "—";
+        document.getElementById("statNextLabel").textContent = upcoming.length ? "Próxima celebração · " + String(fromKey(upcoming[0].date).getDate()).padStart(2, "0") + " " + monthName(fromKey(upcoming[0].date), true).replace(".", "") : "Próxima celebração";
+        renderCalendar();
+        renderDetail();
+        renderUpcoming();
+      }
+
+      function renderCalendar() {
+        var grid = document.getElementById("calendarGrid");
+        var y = monthCursor.getFullYear();
+        var m = monthCursor.getMonth();
+        var firstWeekday = new Date(y, m, 1).getDay();
+        var daysInMonth = new Date(y, m + 1, 0).getDate();
+        document.getElementById("monthLabel").textContent = monthName(monthCursor, false) + " " + y;
+        document.getElementById("prevMonth").disabled = monthCursor <= startMonth;
+        document.getElementById("nextMonth").disabled = monthCursor >= endMonth;
+        document.getElementById("prevMonth").style.opacity = monthCursor <= startMonth ? ".35" : "1";
+        document.getElementById("nextMonth").style.opacity = monthCursor >= endMonth ? ".35" : "1";
+        var html = ["D", "S", "T", "Q", "Q", "S", "S"].map(function (day) { return '<div class="weekday">' + day + "</div>"; }).join("");
+        for (var blank = 0; blank < firstWeekday; blank += 1) html += '<div class="day empty"></div>';
+        for (var dayNumber = 1; dayNumber <= daysInMonth; dayNumber += 1) {
+          var date = new Date(y, m, dayNumber);
+          var key = dateKey(date);
+          var schedule = getSchedule(key);
+          var classes = ["day"];
+          if (key === dateKey(today)) classes.push("today");
+          if (schedule) classes.push("mission-day");
+          if (selectedDate === key) classes.push("selected");
+          html += '<div class="' + classes.join(" ") + '"' + (schedule ? ' data-date="' + key + '" tabindex="0" role="button" aria-label="Missa às ' + massTimeForSchedule(schedule) + " em " + escapeHtml(formatDate(date)) + '"' : "") + '><span class="day-number">' + dayNumber + "</span>" + (schedule ? '<div class="day-event" title="Missa às ' + massTimeForSchedule(schedule) + '">' + massTimeForSchedule(schedule) + "</div>" : "") + "</div>";
+        }
+        while ((firstWeekday + daysInMonth) % 7 !== 0) { html += '<div class="day empty"></div>'; firstWeekday += 1; }
+        grid.innerHTML = html;
+        grid.querySelectorAll(".mission-day").forEach(function (cell) {
+          cell.addEventListener("click", function () { selectedDate = cell.getAttribute("data-date"); renderUser(); });
+          cell.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") { event.preventDefault(); selectedDate = cell.getAttribute("data-date"); renderUser(); }
+          });
+        });
+      }
+
+      function renderDetail() {
+        var detail = document.getElementById("selectedDetail");
+        var schedule = selectedDate ? getSchedule(selectedDate) : null;
+        if (!schedule) {
+          detail.innerHTML = '<div class="empty-state"><div class="empty-icon">✦</div><h3>Escolha uma missa</h3><p>Selecione uma data marcada no calendário para<br>ver a escala de serviço.</p></div>';
+          return;
+        }
+        var date = fromKey(schedule.date);
+        var assignments = schedule.assignments.filter(function (item) { return item.role !== "Folga"; }).map(function (item) {
+          var person = state.acolytes.find(function (acolyte) { return acolyte.id === item.acolyteId; });
+          return '<div class="service-row"><span class="service-role"><span class="role-icon">' + (roleIcons[item.role] || "✦") + '</span>' + escapeHtml(item.role) + '</span><span class="service-name">' + escapeHtml(person ? person.name : "Acólito removido") + "</span></div>";
+        }).join("");
+        var observations = typeof schedule.observations === "string" ? schedule.observations.trim() : "";
+        detail.innerHTML = '<div class="detail-top"><div class="detail-date">' + escapeHtml(formatDate(date)) + '</div><h2>Missa da comunidade</h2><p class="detail-sub">Sábado · ' + massTimeForSchedule(schedule) + ' · Comunidade São Francisco</p></div>' + (assignments ? '<div class="service-list">' + assignments + "</div>" : '<div class="empty-state"><p>Esta missa ainda não tem acólitos na escala.</p></div>') + (observations ? '<div class="schedule-notes"><strong>Observações</strong><p>' + escapeHtml(observations) + "</p></div>" : "");
+      }
+
+      function renderUpcoming() {
+        var list = document.getElementById("upcomingList");
+        var upcoming = sortedSchedules().filter(function (item) { return fromKey(item.date) >= today; }).slice(0, 5);
+        if (!upcoming.length) {
+          list.innerHTML = '<div class="empty-state" style="padding:25px 10px"><p>Nenhuma missa programada.<br>As próximas celebrações aparecerão aqui.</p></div>';
+          return;
+        }
+        list.innerHTML = upcoming.map(function (item) {
+          var date = fromKey(item.date);
+          return '<button class="next-item" type="button" data-date="' + item.date + '"><span class="date-tile"><strong>' + String(date.getDate()).padStart(2, "0") + '</strong><span>' + escapeHtml(monthName(date, true).replace(".", "")) + '</span></span><span class="next-copy"><span class="next-title">Missa da comunidade</span><span class="next-meta">' + massTimeForSchedule(item) + '</span></span><span class="arrow">›</span></button>';
+        }).join("");
+        list.querySelectorAll(".next-item").forEach(function (button) {
+          button.addEventListener("click", function () {
+            selectedDate = button.getAttribute("data-date");
+            monthCursor = new Date(fromKey(selectedDate).getFullYear(), fromKey(selectedDate).getMonth(), 1);
+            renderUser();
+          });
+        });
+      }
+
+      function renderAdmin() {
+        document.getElementById("rosterTab").classList.toggle("active", activeTab === "roster");
+        document.getElementById("schedulesTab").classList.toggle("active", activeTab === "schedules");
+        document.getElementById("rosterTab").setAttribute("aria-selected", String(activeTab === "roster"));
+        document.getElementById("schedulesTab").setAttribute("aria-selected", String(activeTab === "schedules"));
+        document.getElementById("rosterPanel").classList.toggle("hidden", activeTab !== "roster");
+        document.getElementById("schedulesPanel").classList.toggle("hidden", activeTab !== "schedules");
+        renderRoster();
+        renderSchedules();
+      }
+
+      function renderRoster() {
+        var panel = document.getElementById("rosterPanel");
+        var rows = state.acolytes.slice().sort(function (a, b) { return a.name.localeCompare(b.name, "pt-BR"); }).map(function (person) {
+          var initials = person.name.split(/\s+/).slice(0, 2).map(function (part) { return part[0]; }).join("").toUpperCase();
+          return "<tr><td><span class=\"person-cell\"><span class=\"avatar\">" + escapeHtml(initials) + "</span>" + escapeHtml(person.name) + "</span></td><td>" + escapeHtml(person.phone || "—") + '</td><td><span class="actions"><button class="icon-btn edit-person" data-id="' + escapeHtml(person.id) + '" aria-label="Editar ' + escapeHtml(person.name) + '" type="button">✎</button><button class="icon-btn delete-person" data-id="' + escapeHtml(person.id) + '" aria-label="Remover ' + escapeHtml(person.name) + '" type="button">×</button></span></td></tr>';
+        }).join("");
+        panel.innerHTML = '<div class="section-heading"><div><h2>Equipe de acólitos</h2><p>' + state.acolytes.length + (state.acolytes.length === 1 ? " pessoa cadastrada" : " pessoas cadastradas") + '</p></div><button class="btn btn-primary btn-sm" id="addPerson" type="button">＋ Adicionar acólito</button></div><div class="table-wrap"><table><thead><tr><th>Nome</th><th>Contato</th><th style="text-align:right">Ações</th></tr></thead><tbody>' + (rows || '<tr><td colspan="3" class="empty-table">Nenhum acólito cadastrado. Adicione a equipe para começar a montar as escalas.</td></tr>') + "</tbody></table></div>";
+        document.getElementById("addPerson").addEventListener("click", function () { personModal(null); });
+        panel.querySelectorAll(".edit-person").forEach(function (button) { button.addEventListener("click", function () { personModal(button.getAttribute("data-id")); }); });
+        panel.querySelectorAll(".delete-person").forEach(function (button) { button.addEventListener("click", function () { deletePerson(button.getAttribute("data-id")); }); });
+      }
+
+      function renderSchedules() {
+        var panel = document.getElementById("schedulesPanel");
+        var sorted = sortedSchedules();
+        var rows = sorted.map(function (item) {
+          var date = fromKey(item.date);
+          var names = item.assignments.filter(function (assignment) { return assignment.role !== "Folga"; }).map(function (assignment) {
+            var person = state.acolytes.find(function (acolyte) { return acolyte.id === assignment.acolyteId; });
+            return (person ? person.name : "—") + " · " + assignment.role;
+          }).join(", ");
+          return '<div class="schedule-row"><div class="schedule-info"><strong>' + escapeHtml(formatDate(date, { weekday: "short", day: "numeric", month: "long" })) + ' · ' + massTimeForSchedule(item) + '</strong><span>' + escapeHtml(names || "Sem acólitos escalados") + '</span></div><div class="schedule-tools"><button class="btn btn-outline btn-sm change-schedule-date" data-date="' + item.date + '" type="button">Data</button><button class="btn btn-outline btn-sm edit-schedule" data-date="' + item.date + '" type="button">Editar</button><button class="icon-btn delete-schedule" data-date="' + item.date + '" aria-label="Remover escala" type="button">×</button></div></div>';
+        }).join("");
+        panel.innerHTML = '<div class="section-heading"><div><h2>Escalas das missas</h2><p>As escalas são visíveis para todos; somente você pode alterá-las.</p></div><button class="btn btn-primary btn-sm" id="generateSchedules" type="button">✦ Gerar próximas escalas</button></div>' + (rows || '<div class="empty-state" style="padding:28px 10px"><p>Nenhuma escala criada para o período.<br>Gere as escalas depois de cadastrar ao menos 3 acólitos.</p></div>');
+        document.getElementById("generateSchedules").addEventListener("click", generateSchedules);
+        panel.querySelectorAll(".change-schedule-date").forEach(function (button) { button.addEventListener("click", function () { scheduleDateModal(button.getAttribute("data-date")); }); });
+        panel.querySelectorAll(".edit-schedule").forEach(function (button) { button.addEventListener("click", function () { scheduleModal(button.getAttribute("data-date")); }); });
+        panel.querySelectorAll(".delete-schedule").forEach(function (button) { button.addEventListener("click", function () { deleteSchedule(button.getAttribute("data-date")); }); });
+      }
+
+      function modal(content) {
+        var root = document.getElementById("modalRoot");
+        root.innerHTML = '<div class="overlay"><div class="modal" role="dialog" aria-modal="true">' + content + "</div></div>";
+        root.querySelector(".overlay").addEventListener("click", function (event) {
+          if (event.target === event.currentTarget) closeModal();
+        });
+        root.querySelectorAll("[data-close]").forEach(function (button) { button.addEventListener("click", closeModal); });
+      }
+
+      function closeModal() { document.getElementById("modalRoot").innerHTML = ""; }
+
+      function loginModal() {
+        if (!supabaseClient) {
+          showToast("Configure o banco compartilhado antes de acessar o administrador.");
+          return;
+        }
+        modal('<h2>Acesso do administrador</h2><p class="modal-intro">Entre para gerenciar os acólitos e as escalas da comunidade.</p><form id="loginForm"><label class="form-field"><span>E-mail</span><input id="loginEmail" type="email" placeholder="Seu e-mail" autocomplete="username" required></label><label class="form-field"><span>Senha</span><input id="loginPassword" type="password" placeholder="Sua senha" autocomplete="current-password" required></label><div class="modal-error hidden" id="loginError">E-mail ou senha incorretos.</div><div class="modal-actions"><button class="btn btn-outline" type="button" data-close>Cancelar</button><button class="btn btn-primary" type="submit">Entrar</button></div></form>');
+        document.getElementById("loginForm").addEventListener("submit", async function (event) {
+          event.preventDefault();
+          var loginError = document.getElementById("loginError");
+          var loginResult;
+          try {
+            loginResult = await supabaseClient.auth.signInWithPassword({
+              email: document.getElementById("loginEmail").value.trim(),
+              password: document.getElementById("loginPassword").value
+            });
+          } catch (error) {
+            console.error("Não foi possível autenticar no Supabase.", error);
+            loginError.textContent = "Falha de conexão ao autenticar. Tente novamente.";
+            loginError.classList.remove("hidden");
+            return;
+          }
+          if (loginResult.error || !loginResult.data.user || !loginResult.data.user.email || loginResult.data.user.email.toLowerCase() !== ADMIN_EMAIL) {
+            if (!loginResult.error) await supabaseClient.auth.signOut();
+            loginError.textContent = "E-mail ou senha incorretos.";
+            loginError.classList.remove("hidden");
+            return;
+          }
+          adminMode = true;
+          activeTab = "roster";
+          try {
+            var sharedRow = await loadSharedState(true);
+            if (!sharedStateInitialized) {
+              state = cloneState(legacyState);
+              if (!await saveState()) {
+                adminMode = false;
+                await supabaseClient.auth.signOut();
+                loginError.textContent = "Não foi possível inicializar o banco compartilhado.";
+                loginError.classList.remove("hidden");
+                render();
+                return;
+              }
+            }
+            if (!sharedRow) sharedStateInitialized = true;
+          } catch (error) {
+            console.error("Não foi possível carregar os dados administrativos.", error);
+            adminMode = false;
+            await supabaseClient.auth.signOut();
+            loginError.textContent = "Não foi possível carregar os dados compartilhados. Tente novamente.";
+            loginError.classList.remove("hidden");
+            render();
+            return;
+          }
+          closeModal();
+          render();
+        });
+      }
+
+      function personModal(id) {
+        var person = state.acolytes.find(function (item) { return item.id === id; });
+        modal("<h2>" + (person ? "Editar acólito" : "Novo acólito") + '</h2><p class="modal-intro">Cadastre os dados de quem faz parte da equipe de serviço.</p><form id="personForm"><label class="form-field"><span>Nome completo</span><input id="personName" type="text" maxlength="80" placeholder="Ex.: Maria Silva" value="' + escapeHtml(person ? person.name : "") + '" required></label><label class="form-field"><span>Telefone <small>(opcional)</small></span><input id="personPhone" type="tel" maxlength="24" placeholder="(00) 00000-0000" value="' + escapeHtml(person ? person.phone || "" : "") + '"></label><div class="modal-actions"><button class="btn btn-outline" type="button" data-close>Cancelar</button><button class="btn btn-primary" type="submit">Salvar acólito</button></div></form>');
+        document.getElementById("personForm").addEventListener("submit", async function (event) {
+          event.preventDefault();
+          var name = document.getElementById("personName").value.trim();
+          if (!name) return;
+          if (person) {
+            person.name = name;
+            person.phone = document.getElementById("personPhone").value.trim();
+          } else {
+            state.acolytes.push({ id: "acolito-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: name, phone: document.getElementById("personPhone").value.trim() });
+          }
+          if (await saveState()) { closeModal(); render(); showToast(person ? "Cadastro atualizado." : "Acólito cadastrado."); }
+        });
+      }
+
+      async function deletePerson(id) {
+        var person = state.acolytes.find(function (item) { return item.id === id; });
+        if (!person || !window.confirm("Remover " + person.name + " do cadastro? As escalas existentes serão mantidas.")) return;
+        state.acolytes = state.acolytes.filter(function (item) { return item.id !== id; });
+        if (await saveState()) { render(); showToast("Acólito removido do cadastro."); }
+      }
+
+      async function generateSchedules() {
+        if (state.acolytes.length < 3) {
+          showToast("Cadastre pelo menos 3 acólitos para gerar as escalas.");
+          return;
+        }
+        var candidates = scheduleCandidates();
+        if (!candidates.length) { showToast("Não há datas futuras no período."); return; }
+        syncRotationHistory();
+        var existingSlots = {};
+        state.schedules.forEach(function (item) { existingSlots[item.date.slice(0, 7) + "-" + scheduleSlot(item)] = item; });
+        var generated = assignmentsFor(state.acolytes, candidates, existingSlots);
+        generated.forEach(function (item) {
+          var slotKey = item.date.slice(0, 7) + "-" + item.slot;
+          if (!existingSlots[slotKey]) {
+            state.schedules.push(item);
+            existingSlots[slotKey] = true;
+          }
+        });
+        state.schedules = state.schedules.filter(function (item) {
+          var date = fromKey(item.date);
+          return date >= startMonth && date <= new Date(endMonth.getFullYear(), endMonth.getMonth() + 1, 0);
+        });
+        if (await saveState()) {
+          render();
+          showToast("Escalas geradas para as datas ainda sem programação.");
+        }
+      }
+
+      function scheduleDateModal(key) {
+        var schedule = getSchedule(key);
+        if (!schedule) return;
+        var currentDate = fromKey(schedule.date);
+        var monthStart = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        var monthEnd = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        modal('<h2>Alterar data da missa</h2><p class="modal-intro">Escolha outro sábado deste mês. O horário da missa será mantido.</p><form id="scheduleDateForm"><label class="form-field"><span>Nova data · ' + escapeHtml(massTimeForSchedule(schedule)) + '</span><input id="scheduleDate" type="date" min="' + dateKey(monthStart) + '" max="' + dateKey(monthEnd) + '" value="' + escapeHtml(schedule.date) + '" required></label><div class="modal-error hidden" id="scheduleDateError">Escolha um sábado livre dentro deste mês.</div><div class="modal-actions"><button class="btn btn-outline" type="button" data-close>Cancelar</button><button class="btn btn-primary" type="submit">Salvar data</button></div></form>');
+        document.getElementById("scheduleDateForm").addEventListener("submit", async function (event) {
+          event.preventDefault();
+          var newKey = document.getElementById("scheduleDate").value;
+          if (!newKey) return;
+          var newDate = fromKey(newKey);
+          var sameMonth = newDate.getFullYear() === currentDate.getFullYear() && newDate.getMonth() === currentDate.getMonth();
+          var isSaturday = newDate.getDay() === 6;
+          var isOccupied = state.schedules.some(function (item) { return item !== schedule && item.date === newKey; });
+          if (!sameMonth || !isSaturday || isOccupied) {
+            document.getElementById("scheduleDateError").classList.remove("hidden");
+            return;
+          }
+          schedule.slot = scheduleSlot(schedule);
+          schedule.time = schedule.time === "17:00" || schedule.time === "18:00" ? schedule.time : massTimeForSlot(schedule.slot);
+          schedule.date = newKey;
+          if (selectedDate === key) selectedDate = newKey;
+          if (await saveState()) { closeModal(); render(); showToast("Data da missa atualizada."); }
+        });
+      }
+
+      function scheduleModal(key) {
+        var schedule = getSchedule(key);
+        if (!schedule) return;
+        var date = fromKey(key);
+        var editableAssignments = schedule.assignments.filter(function (item) { return item.role !== "Folga"; });
+        var expectedRoles = editableAssignments.map(function (item) { return item.role; });
+        var fields = expectedRoles.map(function (role, index) {
+          var options = state.acolytes.map(function (person) {
+            return '<option value="' + escapeHtml(person.id) + '"' + (person.id === editableAssignments[index].acolyteId ? " selected" : "") + ">" + escapeHtml(person.name) + "</option>";
+          }).join("");
+          return '<label class="form-field"><span>' + escapeHtml(role) + '</span><select data-role="' + escapeHtml(role) + '" required><option value="">Selecione um acólito</option>' + options + "</select></label>";
+        }).join("");
+        var observationValue = typeof schedule.observations === "string" ? schedule.observations : "";
+        modal('<h2>Editar escala</h2><p class="modal-intro">' + escapeHtml(formatDate(date)) + ' · ' + massTimeForSchedule(schedule) + ' · Escolha quem servirá em cada função.</p><form id="scheduleForm">' + fields + '<label class="form-field"><span>Observações <small>(opcional)</small></span><textarea id="scheduleObservations" maxlength="500" placeholder="Ex.: missa com procissão ou bênção especial">' + escapeHtml(observationValue) + '</textarea></label><div class="modal-error hidden" id="scheduleError">Cada acólito deve ocupar somente uma função nesta missa.</div><div class="modal-actions"><button class="btn btn-outline" type="button" data-close>Cancelar</button><button class="btn btn-primary" type="submit">Salvar escala</button></div></form>');
+        document.getElementById("scheduleForm").addEventListener("submit", async function (event) {
+          event.preventDefault();
+          var selects = Array.prototype.slice.call(event.currentTarget.querySelectorAll("select"));
+          var ids = selects.map(function (select) { return select.value; });
+          if (ids.some(function (id) { return !id; }) || new Set(ids).size !== ids.length) {
+            document.getElementById("scheduleError").classList.remove("hidden");
+            return;
+          }
+          var restingAssignment = schedule.assignments.find(function (assignment) { return assignment.role === "Folga"; });
+          schedule.assignments = selects.map(function (select) { return { role: select.getAttribute("data-role"), acolyteId: select.value }; });
+          if (restingAssignment) schedule.assignments.push(restingAssignment);
+          schedule.observations = document.getElementById("scheduleObservations").value.trim();
+          if (await saveState()) { closeModal(); render(); showToast("Escala atualizada."); }
+        });
+      }
+
+      async function deleteSchedule(key) {
+        if (!window.confirm("Remover a escala desta missa?")) return;
+        state.schedules = state.schedules.filter(function (item) { return item.date !== key; });
+        if (selectedDate === key) selectedDate = null;
+        if (await saveState()) { render(); showToast("Escala removida."); }
+      }
+
+      async function logoutAdmin() {
+        var result;
+        try {
+          result = await supabaseClient.auth.signOut();
+        } catch (error) {
+          console.error("Não foi possível encerrar a sessão.", error);
+          showToast("Não foi possível encerrar a sessão. Tente novamente.");
+          return;
+        }
+        if (result.error) {
+          showToast("Não foi possível encerrar a sessão. Tente novamente.");
+          return;
+        }
+        adminMode = false;
+        try {
+          await loadSharedState(false);
+        } catch (error) {
+          console.error("Não foi possível atualizar os dados públicos.", error);
+          showConnectionMessage("Não foi possível atualizar os dados. Recarregue a página.");
+        }
+        render();
+      }
+
+      document.getElementById("adminButton").addEventListener("click", loginModal);
+      document.getElementById("homeLink").addEventListener("click", async function (event) {
+        event.preventDefault();
+        if (adminMode) await logoutAdmin();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+      document.getElementById("logoutButton").addEventListener("click", logoutAdmin);
+      document.getElementById("rosterTab").addEventListener("click", function () { activeTab = "roster"; renderAdmin(); });
+      document.getElementById("schedulesTab").addEventListener("click", function () { activeTab = "schedules"; renderAdmin(); });
+      document.getElementById("prevMonth").addEventListener("click", function () {
+        if (monthCursor > startMonth) { monthCursor = new Date(monthCursor.getFullYear(), monthCursor.getMonth() - 1, 1); renderCalendar(); }
+      });
+      document.getElementById("nextMonth").addEventListener("click", function () {
+        if (monthCursor < endMonth) { monthCursor = new Date(monthCursor.getFullYear(), monthCursor.getMonth() + 1, 1); renderCalendar(); }
+      });
+
+      initializeApp();
+    }());
+  </script>
+</body>
+</html>
